@@ -23,7 +23,6 @@ if(isset($data['abc'])) {
 
             $d = (($data['b']) * ($data['b'])) - (4 * ($data['a']) * ($data['c']));
 
-
             //2 корня
             if ($d > 0) {
 
@@ -31,7 +30,6 @@ if(isset($data['abc'])) {
                 $x2 = (((-$data['b']) - (sqrt($d)))/(2 * $data['a']));
 
                 echo '<div style="color: green;">Первый корень: '.($x1). '</div>';
-
                 echo '<div style="color: green;">Второй корень: '.($x2). '</div><hr>';
             }
 
@@ -39,7 +37,6 @@ if(isset($data['abc'])) {
             if ($d == 0) {
 
                 $x1 = (((-$data['b']) + (sqrt($d)))/(2 * $data['a']));;
-
 
                 echo '<div style="color: green;">Единственный корень: '.($x1). '</div><hr>';
             }
@@ -53,8 +50,7 @@ if(isset($data['abc'])) {
     } else {
 
         //вывод ошибок
-        echo '<div style="color: red;">'.array_shift($errors).
-            '</div><hr>';
+        echo '<div style="color: red;">'.array_shift($errors). '</div><hr>';
     }
 }
 ?>
