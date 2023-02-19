@@ -3,54 +3,74 @@
 $data = $_POST;
 
 if(isset($data['abc'])) {
-    $errors = array();
 
+    //параметр a никогда не может быть пустым
     if (trim($data['a']) == '') {
-        $errors[] = 'Введите параметр a!';
+        $data['a'] = 1;
     }
 
-    if (trim($data['b']) == '') {
-        $errors[] = 'Введите параметр b!';
-    }
+    //полные уравнения, где мы знаем все переменные
+    if ($data['a'] != '' and $data['b'] != '' and $data['c'] != '') {
 
-    if ($data['c'] == '') {
-        $errors[] = 'Введите параметр c!';
-    }
+        $d = (($data['b']) * ($data['b'])) - (4 * ($data['a']) * ($data['c']));
 
-    if (empty($errors)) {
+        //2 корня
+        if ($d > 0) {
 
-        if ($data['a'] != '' and $data['b'] != '' and $data['c'] != '') {
+            $x1 = (((-$data['b']) + (sqrt($d)))/(2 * $data['a']));
+            $x2 = (((-$data['b']) - (sqrt($d)))/(2 * $data['a']));
 
-            $d = (($data['b']) * ($data['b'])) - (4 * ($data['a']) * ($data['c']));
-
-            //2 корня
-            if ($d > 0) {
-
-                $x1 = (((-$data['b']) + (sqrt($d)))/(2 * $data['a']));
-                $x2 = (((-$data['b']) - (sqrt($d)))/(2 * $data['a']));
-
-                echo '<div style="color: green;">Первый корень: '.($x1). '</div>';
-                echo '<div style="color: green;">Второй корень: '.($x2). '</div><hr>';
-            }
-
-            //1 корень
-            if ($d == 0) {
-
-                $x1 = (((-$data['b']) + (sqrt($d)))/(2 * $data['a']));;
-
-                echo '<div style="color: green;">Единственный корень: '.($x1). '</div><hr>';
-            }
-
-            //нет корней
-            if ($d < 0) {
-                echo '<div style="color: green;">Нет корней</div><hr>';
-            }
+            echo '<div style="color: green;">Первый корень: '.($x1). '</div>';
+            echo '<div style="color: green;">Второй корень: '.($x2). '</div><hr>';
         }
 
-    } else {
+        //1 корень
+        if ($d == 0) {
 
-        //вывод ошибок
-        echo '<div style="color: red;">'.array_shift($errors). '</div><hr>';
+            $x1 = (((-$data['b']) + (sqrt($d))) / (2 * $data['a']));;
+
+            echo '<div style="color: green;">Единственный корень: '.($x1). '</div><hr>';
+        }
+
+        //нет корней
+        if ($d < 0) {
+            echo '<div style="color: green;">Нет корней</div><hr>';
+        }
+    }
+
+
+    //неполное уравнение, когда c == 0, но a != 0 и c != 0
+    if ($data['a'] != '' and $data['b'] != '' and $data['c'] == '') {
+
+        $x1 = 0;
+        $x2 = (-($data['b']) / ($data['a']));
+
+        echo '<div style="color: green;">Первый корень: '.($x1). '</div>';
+        echo '<div style="color: green;">Второй корень: '.($x2). '</div><hr>';
+    }
+
+    //неполное уравнение, когда b == 0, но a != 0 и c != 0
+    if ($data['a'] != '' and $data['b'] == '' and $data['c'] != '') {
+
+        $z = (-($data['c']) / ($data['a']));
+
+        if ($z > 0) {
+
+            $x1 = (-(sqrt($z)));
+            $x2 = (sqrt($z));
+
+            echo '<div style="color: green;">Первый корень: '.($x1). '</div>';
+            echo '<div style="color: green;">Второй корень: '.($x2). '</div><hr>';
+
+        } else {
+            echo '<div style="color: green;">Нет решения</div><hr>';
+        }
+
+    }
+
+    //неполное уравнение формата ax^2 = 0, когда b == 0 и c == 0
+    if ($data['a'] != '' and $data['b'] == '' and $data['c'] == '') {
+        echo '<div style="color: green;">Единственный корень: 0</div><hr>';
     }
 }
 ?>
